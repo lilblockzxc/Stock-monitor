@@ -1,0 +1,40 @@
+.container {
+  padding: 20px;
+}
+
+.controls {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+
+  input,
+  select {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+
+  th,
+  td {
+    padding: 8px;
+    border: 1px solid #ddd;
+    text-align: center;
+  }
+
+  th {
+    background-color: #f4f4f4;
+  }
+}
+
+.up {
+  color: green;
+}
+
+.down {
+  color: red;
+}
