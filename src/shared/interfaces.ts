@@ -5,13 +5,13 @@ export interface StockData {
   /** Символ акции */
   symbol: string;
   /** Текущая цена */
-  c: number; // current price
+  c: number;
   /** Цена открытия */
-  o: number; // open price
+  o: number;
   /** Максимальная цена */
-  high?: number; // high price
+  high?: number;
   /** Минимальная цена */
-  low?: number; // low price
+  low?: number;
   /** Изменение цены за день в процентах */
   dp?: number;
 }
