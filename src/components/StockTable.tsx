@@ -6,6 +6,7 @@ import { StockTableProps } from "@/shared/interfaces";
 import { EFilter } from "@/shared/constants";
 
 import styles from "../styles/StockTable.module.scss";
+/**Компонент с таблицей по акциям с текущими данными */
 export const StockTable: FC<StockTableProps> = ({ stocks }) => {
   const [filter, setFilter] = useState<EFilter>(EFilter.ALL);
   const [search, setSearch] = useState("");

@@ -10,7 +10,7 @@ const symbols = [
   "GOOGL",
   "AMZN",
   "BINANCE:BTCUSDT",
-  "EURUSD",
+  "OANDA:EUR_USD",
   "BINANCE:ETHUSDT",
 ];
 

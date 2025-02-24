@@ -16,7 +16,7 @@ import { CandleData, StockData } from "@/shared/interfaces";
 interface StockChartProps {
   stockData: StockData[];
 }
-
+/**Компонент отображения графика с информацией по выбранной акции */
 export const StockChart: FC<StockChartProps> = ({ stockData }) => {
   const [chartData, setChartData] = useState<CandleData[]>([]);
   const [isClient, setIsClient] = useState(false);
@@ -31,6 +31,7 @@ export const StockChart: FC<StockChartProps> = ({ stockData }) => {
   const candleBuffer = useRef<StockData[]>([]);
   const lastCandleCloseTime = useRef<number>(Date.now());
   const lastSelectedSymbol = useRef<string>(selectedSymbol);
+  const lastCandleClose = useRef<number | null>(null);
 
   useEffect(() => {
     setIsClient(true);
@@ -43,6 +44,7 @@ export const StockChart: FC<StockChartProps> = ({ stockData }) => {
       candleBuffer.current = [];
       lastCandleCloseTime.current = Date.now();
       lastSelectedSymbol.current = selectedSymbol;
+      lastCandleClose.current = null;
     }
 
     stockData
@@ -54,7 +56,7 @@ export const StockChart: FC<StockChartProps> = ({ stockData }) => {
         if (now - lastCandleCloseTime.current >= intervalSeconds * 1000) {
           if (candleBuffer.current.length === 0) return;
 
-          const open = candleBuffer.current[0].o;
+          const open = lastCandleClose.current ?? candleBuffer.current[0].o;
           const close = candleBuffer.current[candleBuffer.current.length - 1].c;
           const high = Math.max(
             ...candleBuffer.current
@@ -78,6 +80,7 @@ export const StockChart: FC<StockChartProps> = ({ stockData }) => {
           setChartData((prevData) => [...prevData, newCandle].slice(-20));
           candleBuffer.current = [];
           lastCandleCloseTime.current = now;
+          lastCandleClose.current = close;
         }
       });
   }, [stockData, selectedSymbol, intervalSeconds, isClient]);
@@ -141,6 +144,7 @@ export const StockChart: FC<StockChartProps> = ({ stockData }) => {
           <option value={900}>15 мин</option>
         </select>
       </div>
+
       {chartData.length > 0 ? (
         <ComposedChart
           width={1000}
