@@ -21,8 +21,8 @@ export const StockChart: FC<StockChartProps> = ({ stockData }) => {
   const [chartData, setChartData] = useState<CandleData[]>([]);
   const [isClient, setIsClient] = useState(false);
 
-  // Выбранный интервал (по умолчанию 1 минута = 60 секунд)
-  const [intervalSeconds, setIntervalSeconds] = useState(15);
+  // Выбранный интервал
+  const [intervalSeconds, setIntervalSeconds] = useState(5);
 
   // Выбранный символ акции
   const [selectedSymbol, setSelectedSymbol] = useState<string>("");
@@ -44,6 +44,7 @@ export const StockChart: FC<StockChartProps> = ({ stockData }) => {
       lastCandleCloseTime.current = Date.now();
       lastSelectedSymbol.current = selectedSymbol;
     }
+
     stockData
       .filter((stock) => stock.symbol === selectedSymbol)
       .forEach((stock) => {
@@ -140,24 +141,30 @@ export const StockChart: FC<StockChartProps> = ({ stockData }) => {
           <option value={900}>15 мин</option>
         </select>
       </div>
+      {chartData.length > 0 ? (
+        <ComposedChart
+          width={1000}
+          height={500}
+          data={chartData}
+          margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
+        >
+          <CartesianGrid stroke="#ccc" />
+          <XAxis dataKey="time" />
+          <YAxis />
 
-      <ComposedChart
-        width={1000}
-        height={500}
-        data={chartData}
-        margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
-      >
-        <CartesianGrid stroke="#ccc" />
-        <XAxis dataKey="time" />
-        <YAxis />
-
-        <Bar
-          dataKey="close"
-          fill="#8884d8"
-          isAnimationActive={true}
-          shape={(props: BarProps) => <CandleShape {...props} />}
-        />
-      </ComposedChart>
+          <Bar
+            dataKey="close"
+            fill="#8884d8"
+            isAnimationActive={true}
+            shape={(props: BarProps) => <CandleShape {...props} />}
+          />
+        </ComposedChart>
+      ) : (
+        <p>
+          Выберите акцию или немного подождите, пока свеча сформируется исходя
+          из данных и интервала
+        </p>
+      )}
     </div>
   );
 };
