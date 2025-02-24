@@ -37,13 +37,12 @@ export const useStockWebSocket = (symbols: string[]): StockData[] => {
               stockMap.set(stock.symbol, {
                 ...existingStock,
                 c: stock.c,
-                //o: stock.o ?? stock.c,
               });
             } else {
               stockMap.set(stock.symbol, {
                 symbol: stock.symbol,
                 c: stock.c,
-                o: stock.o ?? stock.c,
+                o: stock.o ?? stock.c, // За цену открытия берем текущую,
               });
             }
           });

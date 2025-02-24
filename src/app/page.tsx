@@ -20,8 +20,8 @@ export default function Home() {
   return (
     <div>
       <h1>Биржевой монитор</h1>
-      <StockTable stocks={stocks} />
       <StockChart stockData={stocks} />
+      <StockTable stocks={stocks} />
     </div>
   );
 }

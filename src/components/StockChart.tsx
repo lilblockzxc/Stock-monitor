@@ -95,7 +95,7 @@ export const StockChart: FC<StockChartProps> = ({ stockData }) => {
   const currentStock = stockData.find((s) => s.symbol === selectedSymbol);
 
   return (
-    <div>
+    <div style={{ overflowY: "hidden" }}>
       <div style={{ marginBottom: "10px" }}>
         <label>Выберите символ акции: </label>
         <select
